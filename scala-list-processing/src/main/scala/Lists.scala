@@ -88,7 +88,7 @@ object Lists {
       case num if num < high => num :: fromToHelper(num + 1) 
       case _ => Nil
     }
-    fromToHelper(low)
+    inside(lst)
   }
 
   //  We assume that lst is in ascending order. 

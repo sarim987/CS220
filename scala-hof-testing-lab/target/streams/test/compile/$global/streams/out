@@ -1,0 +1,5 @@
+[0m[[0m[31merror[0m] [0m[0m/Users/Sarim/Documents/CS220 Projects/scala-hof-testing-lab/src/test/scala/Tests.scala:10:12: not enough arguments for method zip: (lst1: List[A], lst2: List[B])List[(A, B)].[0m
+[0m[[0m[31merror[0m] [0m[0mUnspecified value parameter lst2.[0m
+[0m[[0m[31merror[0m] [0m[0m    HOF.zip(List(1, 0) == List(true, false))[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
