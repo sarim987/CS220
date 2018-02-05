@@ -23,6 +23,28 @@ class TestSuite extends org.scalatest.FunSuite {
   test("flatten test") {
     assert(flatten(List(List(1, 2), List(3, 4))) == List(1, 2, 3, 4))
   }
+  test("flatten test 1") {
+    assert(flatten(List(List())) == List())
+  }
+  test("flatten test 2") {
+    assert(flatten(List(List(1), List(2))) == List(1, 2))
+  }
+  test("flatten test 3") {
+    assert(flatten(List(List(), List(1, 2, 3), List(4, 5, 6), List(7))) == List(1, 2, 3, 4, 5, 6, 7))
+  }
+  test("flatten test 4") {
+    assert(flatten(List(List(1))) == List(1))
+  }
+
+  test("flatten3 test 1") {
+    assert(flatten(List(List(List()))) == List())
+  }
+  test("flatten3 test 2") {
+    assert(flatten(List(List(List(1)))) == List(1))
+  }
+  test("flatten3 test 3") {
+    assert(flatten(List(List(List(1, 2), List(3, 4)))) == List(1, 2, 3, 4))
+  }
 
   test("buildList test") {
     def f(x: Int) = x
@@ -33,6 +55,15 @@ class TestSuite extends org.scalatest.FunSuite {
     def f(n: Int): List[Int] = buildList(n, (_: Int) => n)
     assert(mapList(List(1, 2, 3), f) == List(1, 2, 2, 3, 3, 3))
   }
+    test("mapList test2") {
+    def f(n: Int): List[Int] = buildList(n, (_: Int) => n)
+    assert(mapList(List(2, 3, 4), f) == List(2,2,3,3,3, 4, 4, 4, 4))
+  }
+    test("mapList test3") {
+    def f(n: Int): List[Int] = buildList(n, (_: Int) => n)
+    assert(mapList(List(3, 4, 5), f) == List(3,3,3,4,4, 4, 4, 5, 5, 5, 5, 5))
+  }
+
 
   def isEven(n: Int): Boolean = n % 2 == 0
 

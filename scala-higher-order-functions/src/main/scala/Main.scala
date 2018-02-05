@@ -16,17 +16,18 @@ object HOF {
   //Need "optimizing
   def flatten[A](lst: List[List[A]]): List[A] = lst match{
     case Nil => Nil
-    case Nil :: tail => flatten(tail)  // Is this required??
+    case Nil :: tail => flatten(tail)  // Is this required?? and in maplist?
     case (item :: tail2) :: tail => item :: flatten(tail2 :: tail)
   }
 
   def flatten3[A](lst: List[List[List[A]]]): List[A] = lst match {
     case Nil => Nil
     case Nil :: tail => Nil
-    case (Nil :: tail) :: list2 => Nil
+    case (Nil :: tail) :: tail2 => Nil
+    //case ((item :: Nil) :: Nil) :: Nil => item :: Nil
     //case (item :: tail1) :: tail2 => item :: flatten3(tail1 :: tail2)
-    case ((item :: tail3) :: tail2) :: tail1 => item :: flatten[A](tail2)
-
+    //case ((item :: tail0) :: tail1) :: tail2 => item :: flatten(flatten(tail2))
+    case (item :: tail) :: tail2 => flatten[A](tail)
   }
   
 
@@ -37,13 +38,16 @@ object HOF {
     }
     buildListHelper(0, length, f)
   }
-
-  def mapList[A, B](lst: List[A], f: A => List[B]): List[B] = lst match{
-    case Nil => Nil
-    case item :: Nil => item :: Nil
-    case item :: tail => List[B](item) :: mapList[A, B](tail, f)
-
+  
+  def mapList[A, B](lst: List[A], f: A => List[B]): List[B] ={
+      def mapListHelper[A, B](lst: List[A], f: A => List[B]): List[List[B]] = lst match {
+        case Nil => Nil
+        case head :: tail => f(head) :: mapListHelper(tail, f)
+      } 
+      flatten(mapListHelper(lst, f))
   }
+
+
 
   def partition[A](f: A => Boolean, lst: List[A]): (List[A], List[A]) ={
 

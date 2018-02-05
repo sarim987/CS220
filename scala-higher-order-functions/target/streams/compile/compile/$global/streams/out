@@ -1,16 +1,6 @@
-[0m[[0m[31merror[0m] [0m[0m/Users/Sarim/Documents/CS220 Projects/scala-higher-order-functions/src/main/scala/Main.scala:43:30: type mismatch;[0m
-[0m[[0m[31merror[0m] [0m[0m found   : x$7.type (with underlying type A)[0m
-[0m[[0m[31merror[0m] [0m[0m required: B[0m
-[0m[[0m[31merror[0m] [0m[0m    case item :: Nil => item :: Nil[0m
-[0m[[0m[31merror[0m] [0m[0m                             ^[0m
-[0m[[0m[31merror[0m] [0m[0m/Users/Sarim/Documents/CS220 Projects/scala-higher-order-functions/src/main/scala/Main.scala:44:34: type mismatch;[0m
-[0m[[0m[31merror[0m] [0m[0m found   : item.type (with underlying type A)[0m
-[0m[[0m[31merror[0m] [0m[0m required: B[0m
-[0m[[0m[31merror[0m] [0m[0m    case item :: tail => List[B](item) :: mapList[A, B](tail, f)[0m
-[0m[[0m[31merror[0m] [0m[0m                                 ^[0m
-[0m[[0m[31merror[0m] [0m[0m/Users/Sarim/Documents/CS220 Projects/scala-higher-order-functions/src/main/scala/Main.scala:44:40: type mismatch;[0m
-[0m[[0m[31merror[0m] [0m[0m found   : x$8.type (with underlying type List[B])[0m
-[0m[[0m[31merror[0m] [0m[0m required: B[0m
-[0m[[0m[31merror[0m] [0m[0m    case item :: tail => List[B](item) :: mapList[A, B](tail, f)[0m
-[0m[[0m[31merror[0m] [0m[0m                                       ^[0m
-[0m[[0m[31merror[0m] [0m[0mthree errors found[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/Sarim/Documents/CS220 Projects/scala-higher-order-functions/src/main/scala/Main.scala:30:48: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : List[A][0m
+[0m[[0m[31merror[0m] [0m[0m required: List[List[A]][0m
+[0m[[0m[31merror[0m] [0m[0m    case (item :: tail) :: tail2 => flatten[A](item)[0m
+[0m[[0m[31merror[0m] [0m[0m                                               ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
