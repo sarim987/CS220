@@ -13,10 +13,10 @@ object HOF {
     case (h1 :: tail1, h2 :: tail2) => (h1, h2) :: zip(tail1, tail2)
 
   }
-  //Need "optimizing
+
   def flatten[A](lst: List[List[A]]): List[A] = lst match{
     case Nil => Nil
-    case Nil :: tail => flatten(tail)  // Is this required?? and in maplist?
+    case Nil :: tail => flatten(tail)
     case (item :: tail2) :: tail => item :: flatten(tail2 :: tail)
   }
 
@@ -24,10 +24,7 @@ object HOF {
     case Nil => Nil
     case Nil :: tail => Nil
     case (Nil :: tail) :: tail2 => Nil
-    //case ((item :: Nil) :: Nil) :: Nil => item :: Nil
-    //case (item :: tail1) :: tail2 => item :: flatten3(tail1 :: tail2)
-    //case ((item :: tail0) :: tail1) :: tail2 => item :: flatten(flatten(tail2))
-    case (item :: tail) :: tail2 => flatten[A](tail)
+    case item :: tail => flatten(flatten(lst))
   }
   
 
@@ -81,17 +78,13 @@ object HOF {
 
   def sort[A](lessThan: (A, A) => Boolean, alist: List[A]): List[A] = alist match{
     case Nil => Nil
-    case hd :: tl => insert(lessThan, hd, sort(lessThan, tl))
+    case item :: tail => sortHelper(lessThan, item, sort(lessThan, tail))
 
   }
 
-  def insert[A](lessThan: (A, A) => Boolean, x: A, alist: List[A]): List[A] = alist match {
-    case Nil => List(x)
-    case hd :: tl => {
-      if (lessThan(x, hd)) { x :: hd :: tl }
-      else {
-        hd :: insert(lessThan, x, tl)
-      }
-    }
+  def sortHelper[A](lessThan: (A, A) => Boolean, element: A, alist: List[A]): List[A] = alist match {
+    case Nil => element :: Nil
+    case item :: tail if lessThan(element, item) => element :: item :: tail
+    case item :: tail if !lessThan(element, item) => item :: sortHelper(lessThan, element, tail)
   }
 }

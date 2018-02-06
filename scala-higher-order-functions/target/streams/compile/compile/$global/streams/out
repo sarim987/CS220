@@ -1,6 +1,6 @@
-[0m[[0m[31merror[0m] [0m[0m/Users/Sarim/Documents/CS220 Projects/scala-higher-order-functions/src/main/scala/Main.scala:30:48: type mismatch;[0m
-[0m[[0m[31merror[0m] [0m[0m found   : List[A][0m
-[0m[[0m[31merror[0m] [0m[0m required: List[List[A]][0m
-[0m[[0m[31merror[0m] [0m[0m    case (item :: tail) :: tail2 => flatten[A](item)[0m
-[0m[[0m[31merror[0m] [0m[0m                                               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/Sarim/Documents/CS220 Projects/scala-higher-order-functions/src/main/scala/Main.scala:12:32: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : (A, scala.collection.immutable.Nil.type)[0m
+[0m[[0m[31merror[0m] [0m[0m required: List[(A, B)][0m
+[0m[[0m[31merror[0m] [0m[0m    case (item :: Nil, Nil) => (item, Nil)[0m
+[0m[[0m[31merror[0m] [0m[0m                               ^[0m
 [0m[[0m[31merror[0m] [0m[0mone error found[0m

@@ -1,11 +1,11 @@
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(TestSuite, org.scalatest.tools.Framework$$anon$1@410da310, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(TestSuite, org.scalatest.tools.Framework$$anon$1@2159b72a, false, [SuiteSelector])[0m
 [0m[[0m[0mdebug[0m] [0m[0mSummary for ScalaCheck not available.[0m
 [0m[[0m[0minfo[0m] [0m[0mScalaTest[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 158 milliseconds.[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 21[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 249 milliseconds.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 42[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[36mSuites: completed 1, aborted 0[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 18, failed 3, canceled 0, ignored 0, pending 0[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[31m*** 3 TESTS FAILED ***[0m[0m
-[0m[[0m[31merror[0m] [0m[0mFailed: Total 21, Failed 3, Errors 0, Passed 18[0m
-[0m[[0m[31merror[0m] [0m[0mFailed tests:[0m
-[0m[[0m[31merror[0m] [0m[0m	TestSuite[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 42, failed 0, canceled 0, ignored 0, pending 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mAll tests passed.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0mPassed: Total 42, Failed 0, Errors 0, Passed 42[0m
+[0m[[0m[0mdebug[0m] [0m[0mPassed tests:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TestSuite[0m
