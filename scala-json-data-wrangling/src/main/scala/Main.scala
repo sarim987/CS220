@@ -52,24 +52,44 @@ object Wrangling extends WranglingLike {
     data.filter(data => ratingHelper(data, rating, gt))
   }
 
-  def catHelper(datum: Json, key: String, cat: String, func: (String, String) => Boolean): Boolean = datum match {
-  case JsonDict(aMap) => aMap.get(JsonString(key)) match {
+  def catHelper(datum: Json, key: String, func: (String, String) => Boolean): Boolean = datum match {
+  case JsonDict(aMap) => aMap.get(JsonString("categories")) match {
     case None => false
     case Some(categ) => categ match {
-      case JsonString(x) => func(x, cat)
+      case JsonArray(x) => x.contains(JsonString(key))
       case _ => false
     }
   }
   case _ => false
 }
-  def category(data: List[Json], category: String): List[Json] = {
+
+  def category(data: List[Json], categor: String): List[Json] = {
     def eq(x: String, y: String): Boolean = x == y
-    data.filter(data => catHelper(data, "Food",category, eq))
+    data.filter(data => catHelper(data, categor, eq))
   }
 
-  def groupByState(data: List[Json]): Map[String, List[Json]] = ???
+  def groupByState(data: List[Json]): Map[String, List[Json]] =
+    data.groupBy(datum => datum match {
+      case JsonDict(aMap) => aMap.get(JsonString("state")) match {
+        case Some(JsonString(stateCode)) => stateCode
+        case _ => "no state"
+      }
+      case _ => "no state"
+  })
 
-  def groupByCategory(data: List[Json]): Map[String, List[Json]] = ???
+  def groupByCategory(data: List[Json]): Map[String, List[Json]] =
+    data.groupBy(datum => datum match {
+      case JsonDict(aMap) => aMap.get(JsonString("categories")) match {
+        case Some(JsonArray(x)) => x match {
+          case JsonString(item) :: Nil => item
+          case JsonString(item) :: tail => item
+          case _ => "no state"
+        }
+
+        case _ => "no state"
+      }
+      case _ => "no state"
+  })
 
   def bestPlace(data: List[Json]): Option[Json] = ???
 

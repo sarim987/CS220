@@ -42,83 +42,32 @@ class TestSuite extends org.scalatest.FunSuite {
     //assert(isFromState(myJson, "MA"))
     assert(ratingGT(jsonList, 4.1) == List(moreJson))
   }
-    test("categ test 1") {
-    val res = JsonHelper.parse("""
-    {
-  "name": "Richmond Town Square",
-  "city": "Richmond Heights",
-  "state": "OH",
-  "stars": 2,
-  "review_count": 17,
-  "attributes": {
-    "RestaurantsPriceRange2": 2,
-    "BusinessParking": {
-      "garage": false,
-      "street": false,
-      "validated": false,
-      "lot": true,
-      "valet": false
-    },
-    "BikeParking": true,
-    "WheelchairAccessible": true
-  },
-  "categories": [
-    "Shopping",
-    "Shopping Centers"
-  ]
-}
-{
-  "name": "South Florida Style Chicken & Ribs",
-  "city": "Charlotte",
-  "state": "NC",
-  "stars": 4.5,
-  "review_count": 4,
-  "attributes": {
-    "GoodForMeal": {
-      "dessert": false,
-      "latenight": false,
-      "lunch": false,
-      "dinner": false,
-      "breakfast": false,
-      "brunch": false
-    },
-    "HasTV": false,
-    "RestaurantsGoodForGroups": true,
-    "NoiseLevel": "average",
-    "RestaurantsAttire": "casual",
-    "RestaurantsReservations": false,
-    "OutdoorSeating": false,
-    "BusinessAcceptsCreditCards": false,
-    "RestaurantsPriceRange2": 2,
-    "RestaurantsDelivery": true,
-    "Ambience": {
-      "romantic": false,
-      "intimate": false,
-      "classy": false,
-      "hipster": false,
-      "divey": false,
-      "touristy": false,
-      "trendy": false,
-      "upscale": false,
-      "casual": false
-    },
-    "RestaurantsTakeOut": true,
-    "GoodForKids": true
-  },
-  "categories": [
-    "Food",
-    "Soul Food",
-    "Convenience Stores",
-    "Restaurants"
-  ]
-}
-    """)
-    val res2 = JsonHelper.parse(""" 
+
+  test("categ test 1") {
+    val res = JsonHelper.parse(""" 
   {
     "categories": ["Food", "Fun"]
   }
 """)
-    assert(category(List(res), "Food") == List(res2))
+    //val moreJson: Json = JsonDict(Map(JsonString("categories") -> Map(JsonString("Food"), JsonString("Fun"), JsonString("Games") ) ))
+    //val jsonList: List[Json] = List(moreJson)
+    assert(category(List(res), "Food") == List(res))
 
   }
+  test("groupbycat") {
+      val res = JsonHelper.parse(""" 
+  {
+    "name": "Taco Bell",
+    "categories": ["Food", "Fun"]
+  }
+""")
+
+
+
+    assert(groupByCategory(List(res)) == 
+      Map("Food" -> List(("Taco Bell")), 
+        "Fun" -> List(("Taco Bell")) ))
+
+  }
+  
 }
