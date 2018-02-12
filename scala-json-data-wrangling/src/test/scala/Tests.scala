@@ -54,8 +54,19 @@ class TestSuite extends org.scalatest.FunSuite {
     assert(category(List(res), "Food") == List(res))
 
   }
+  test("toStringfromJsonString"){
+    assert(arrToString(List(JsonString("Bowling"), JsonString("Fun"))) == List("Bowling", "Fun"))
+
+  }
+
   test("groupbycat") {
       val res = JsonHelper.parse(""" 
+  {
+    "name": "Taco Bell",
+    "categories": ["Food", "Fun"]
+  }
+""")
+      val res2 = JsonHelper.parse(""" 
   {
     "name": "Taco Bell",
     "categories": ["Food", "Fun"]
@@ -64,7 +75,7 @@ class TestSuite extends org.scalatest.FunSuite {
 
 
 
-    assert(groupByCategory(List(res)) == 
+    assert(categorize(res) == 
       Map("Food" -> List(("Taco Bell")), 
         "Fun" -> List(("Taco Bell")) ))
 

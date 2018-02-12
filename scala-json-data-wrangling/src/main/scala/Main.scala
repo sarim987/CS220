@@ -76,20 +76,30 @@ object Wrangling extends WranglingLike {
       }
       case _ => "no state"
   })
+  def arrToString(arr: List[Json]): List[String] = arr match {
+    case Nil => Nil
+    case item :: tail => item match {
+      case JsonString(x) => x :: arrToString(tail)
+      case _ => arrToString(tail)
+    }
 
-  def groupByCategory(data: List[Json]): Map[String, List[Json]] =
-    data.groupBy(datum => datum match {
-      case JsonDict(aMap) => aMap.get(JsonString("categories")) match {
-        case Some(JsonArray(x)) => x match {
-          case JsonString(item) :: Nil => item
-          case JsonString(item) :: tail => item
-          case _ => "no state"
-        }
-
-        case _ => "no state"
+  }
+  def categorize(n: Json): List[String] = n match {
+    case JsonDict(aMap) => aMap.get(JsonString("categories")) match {
+      case Some(categ) => categ match {
+        case JsonArray(x) => arrToString(x)
+        case _ => Nil
       }
-      case _ => "no state"
-  })
+      case _ => Nil
+    }
+    case _ => Nil
+  }
+
+  def groupByCategory(data: List[Json]): Map[String, List[Json]] = ???// data match{
+      //case JsonDict(aMap) => dupCategory(aMap).groupBy(tuple => tuple._1)
+      //data.map(dupCategory).flatten.groupBy(tuple => tuple._1)
+    //}
+  
 
   def bestPlace(data: List[Json]): Option[Json] = ???
 
