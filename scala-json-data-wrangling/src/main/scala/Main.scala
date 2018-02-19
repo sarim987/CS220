@@ -75,34 +75,79 @@ object Wrangling extends WranglingLike {
         case _ => "no state"
       }
       case _ => "no state"
-  })
-  def arrToString(arr: List[Json]): List[String] = arr match {
+    })
+
+  def getName(n: Option[Json]): JsonString = n match{
+
+      case Some(n) => n match {
+        case JsonString(x) => JsonString(x)
+        case _ => JsonString("")
+      }
+      case _ => JsonString("")
+  }
+  def arrToString(arr: List[Json], str: JsonString): List[(String, Json)] = arr match {
     case Nil => Nil
     case item :: tail => item match {
-      case JsonString(x) => x :: arrToString(tail)
-      case _ => arrToString(tail)
+      case JsonString(x) => (x, str) :: arrToString(tail, str)
+      case _ => arrToString(tail, str)
     }
 
   }
-  def categorize(n: Json): List[String] = n match {
+  def categorize(n: Json): List[(String, Json)] = n match {
     case JsonDict(aMap) => aMap.get(JsonString("categories")) match {
       case Some(categ) => categ match {
-        case JsonArray(x) => arrToString(x)
+        case JsonArray(x) => arrToString(x, getName(aMap.get(JsonString("name"))))
         case _ => Nil
       }
       case _ => Nil
     }
     case _ => Nil
   }
-
-  def groupByCategory(data: List[Json]): Map[String, List[Json]] = ???// data match{
-      //case JsonDict(aMap) => dupCategory(aMap).groupBy(tuple => tuple._1)
-      //data.map(dupCategory).flatten.groupBy(tuple => tuple._1)
-    //}
+  //def dupCategory(n: List[Json]): List[(String, Int)] = categorize(n).map(cat => (cat, n))
+  //change back to list param
+  def groupByCategory(data: List[Json]): Map[String , List[Json]] = ???
+  //???//categorize(data).groupBy(tuple => tuple._1)
+  //  data.map(categorize)
+  //}
   
 
-  def bestPlace(data: List[Json]): Option[Json] = ???
+  def bestPlace(data: List[Json]): Option[Json] = {
+    Some(bestPlaceHelper(data).head)
+  }
+  
+  def bestPlaceHelper(data: List[Json]): List[Json] = data.sortBy(item => (item match {
+    case JsonDict(aMap) => aMap.get(JsonString("stars")) match {
+      case Some(JsonNumber(stateCode)) => -stateCode
+      case _ => 0
+    }
+    case _ => 0
+  }, item match {
+    case JsonDict(aMap) => aMap.get(JsonString("review_count")) match {
+      case Some(JsonNumber(stateCode)) => -stateCode
+      case _ => 0
+    }
+    case _ => 0
+  }))
 
-  def hasAmbience(data: List[Json], ambience: String): List[Json] = ???
+def hasAmbience(data: List[Json], ambience: String): List[Json] = {
+  hasAmbienceHelper(data, ambience)
 
+}
+def hasAmbienceHelper(data: List[Json], ambience: String): List[Json] = data match{
+  case Nil => Nil
+  case item :: tail => item match {
+    case JsonDict(aMap) => aMap.get(JsonString("attributes")) match {
+        case Some(JsonDict(t)) => t.get(JsonString("Ambience")) match {
+          case Some(JsonDict(r)) => r.get(JsonString(ambience)) match {
+            case Some(JsonBool(x)) => if(x) item :: hasAmbienceHelper(tail, ambience) else hasAmbienceHelper(tail, ambience)
+              case _ => Nil
+            }
+            case _ => Nil
+          }
+        case _ => Nil
+      }
+      case _ => Nil
+    }
+    case _ => Nil
+  }
 }

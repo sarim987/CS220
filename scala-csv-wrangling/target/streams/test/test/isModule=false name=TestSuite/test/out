@@ -1,0 +1,9 @@
+[0m[[0m[0minfo[0m] [0m[0m[32mTestSuite:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- readSSARow Test 1[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- readCDCRow Test 1[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- YearIs[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- YearGT[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- YearLT[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- YearOnlyName[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- mostPopular[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- findMax[0m[0m
