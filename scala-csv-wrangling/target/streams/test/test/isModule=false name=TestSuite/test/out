@@ -6,4 +6,8 @@
 [0m[[0m[0minfo[0m] [0m[0m[32m- YearLT[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- YearOnlyName[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- mostPopular[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- findMax[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- count[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- countGirlsBoys[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- genderNeutral[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- expectedAlive[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- estimatePopulation[0m[0m
