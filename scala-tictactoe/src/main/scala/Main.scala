@@ -3,7 +3,11 @@ import hw.tictactoe._
 class Game(val turn: Player, dim: Int, board: Map[(Int, Int), Player]) extends GameLike[Game] {
   def isFinished(): Boolean = {
     if(board.size == (dim*dim)) true
+    else if(getWinner() != None) true
     else false
+  }
+  override def equals(other: Any): Boolean = {
+    other.isInstanceOf[Game] && other.toString == this.toString
   }
   /** Assume that isFinished is true **/
   def getWinner(): Option[Player] =  {
@@ -13,7 +17,7 @@ class Game(val turn: Player, dim: Int, board: Map[(Int, Int), Player]) extends G
   }
   def isWinningRow(col: Int, player: Player): Boolean ={
     def isWinningAnyRow(row: Int, col: Int, play: Player): Boolean = {
-      if(row < dim && board((row, col)) == play) {
+      if(row < dim && board.contains((row, col)) && board((row, col)) == play) {
         true && isWinningAnyRow(row+1, col, play)
       }else if(row == dim){
         true
@@ -29,14 +33,14 @@ class Game(val turn: Player, dim: Int, board: Map[(Int, Int), Player]) extends G
   }
   def isWinningCol(row: Int, player: Player): Boolean ={
     def isWinningAnyCol(row: Int, col: Int, play: Player): Boolean = {
-      if(col < dim && board((row, col)) == play) {
+      if(col < dim && board.contains((row, col)) && board((row, col)) == play) {
         true && isWinningAnyCol(row, col+1, play)
       }else if(col == dim){
         true
       }else{
         false
       }
-  }
+    }
     if(row < dim){
       if(isWinningAnyCol(row, 0, player)) true
       else isWinningCol(row+1, player)
@@ -45,7 +49,7 @@ class Game(val turn: Player, dim: Int, board: Map[(Int, Int), Player]) extends G
   }
 
   def isWinningAnyRDiag(index: Int, play: Player): Boolean = {
-      if(index < dim && board((index, index)) == play) {
+      if(index < dim && board.contains((index, index)) && board((index, index)) == play) {
         true && isWinningAnyRDiag(index+1, play)
       }else if(index == dim){
         true
@@ -55,7 +59,7 @@ class Game(val turn: Player, dim: Int, board: Map[(Int, Int), Player]) extends G
     }
   
   def isWinningAnyLDiag(min: Int, max: Int, play: Player): Boolean = {
-      if(min < dim && board((min, max)) == play) {
+      if(min < dim && board.contains((min, max)) && board((min, max)) == play) {
         true && isWinningAnyLDiag(min+1, max-1, play)
       }else if(min == dim){
         true
@@ -65,25 +69,44 @@ class Game(val turn: Player, dim: Int, board: Map[(Int, Int), Player]) extends G
   }
 
   def drawBoard(): Unit = {
+    println(turn)
+    println(dim)
+    //print(board + ((2, 0) -> X))
     board foreach (x => println (x._1 + "-->" + x._2))
 
   }
   def nextBoards(): List[Game] = {
-        val sol1 = Solution.createGame(X, 3, Map((0, 0) -> X, (1, 0) -> X, 
-                                                                (1, 1) -> O, (2, 1) -> O,
-                                                   (0, 2) -> X, (1, 2) -> O, (2, 2) -> O)) 
-
-    val sol2 = Solution.createGame(X, 3, Map((0, 0) -> X, (1, 0) -> X, (2, 0) -> O,
-                                                                (1, 1) -> O, 
-                                                   (0, 2) -> X, (1, 2) -> O, (2, 2) -> O)) 
-
-    val sol3 = Solution.createGame(X, 3, Map((0, 0) -> X, (1, 0) -> X, 
-                                                   (0, 1) -> O, (1, 1) -> O, (2, 1) -> O,
-                                                   (0, 2) -> X, (1, 2) -> O, (2, 2) -> O))     
-  List[Game](sol1, sol2, sol3)
+    //if isFinished()
+    (new Game(X, 3, Map()) :: Nil)
+  }
+  def checkRow(col: Int): List[Game] = {
+    //List[Game] ls = Nil
+    //have to do all in checkrowhelper for the list ******
+    def checkRowHelper(row: Int, col: Int, ls: List[Game]): List[Game] = {
+      if(row < dim && col < dim && !board.contains((row, col))){
+        if(turn == X){
+          val newmap = board + ((row, col) -> X)
+          val g1 = new Game(O, dim, newmap)
+          g1.drawBoard()
+          checkRowHelper(row+1, col, g1 :: ls)
+        }else{
+          val newmap = board + ((row, col) -> O)
+          val g1 = new Game(X, dim, newmap)
+          println(row, col)
+          g1.drawBoard()
+          checkRowHelper(row+1, col, g1 :: ls)
+        }
+      }else if(row < dim && col < dim && board.contains((row, col))){
+        checkRowHelper(row+1, col, ls)
+      }
+      else{
+        if(col < dim) checkRowHelper(0, col+1, ls)
+        else ls
+      }
+    }
+  checkRowHelper(0,col, List()) 
   }
 }
-
 object Solution extends MinimaxLike {
   type T = Game // T is an "abstract type member" of MinimaxLike
   def createGame(turn: Player, dim: Int, board: Map[(Int, Int), Player]): Game = {
