@@ -6,9 +6,6 @@ class Game(val turn: Player, dim: Int, board: Map[(Int, Int), Player]) extends G
     else if(getWinner() != None) true
     else false
   }
-  override def equals(other: Any): Boolean = {
-    other.isInstanceOf[Game] && other.toString == this.toString
-  }
   /** Assume that isFinished is true **/
   def getWinner(): Option[Player] =  {
     if(isWinningRow(0, X) || isWinningCol(0, X) || isWinningAnyRDiag(0, X) || isWinningAnyLDiag(0, dim - 1, X)) Some(X)
@@ -69,31 +66,21 @@ class Game(val turn: Player, dim: Int, board: Map[(Int, Int), Player]) extends G
   }
 
   def drawBoard(): Unit = {
-    println(turn)
-    println(dim)
-    //print(board + ((2, 0) -> X))
-    board foreach (x => println (x._1 + "-->" + x._2))
+    
+    board foreach (x => println((x._1 + "-->" + x._2)))
+    
 
   }
   def nextBoards(): List[Game] = {
-    //if isFinished()
-    (new Game(X, 3, Map()) :: Nil)
-  }
-  def checkRow(col: Int): List[Game] = {
-    //List[Game] ls = Nil
-    //have to do all in checkrowhelper for the list ******
     def checkRowHelper(row: Int, col: Int, ls: List[Game]): List[Game] = {
       if(row < dim && col < dim && !board.contains((row, col))){
         if(turn == X){
           val newmap = board + ((row, col) -> X)
           val g1 = new Game(O, dim, newmap)
-          g1.drawBoard()
           checkRowHelper(row+1, col, g1 :: ls)
         }else{
           val newmap = board + ((row, col) -> O)
           val g1 = new Game(X, dim, newmap)
-          println(row, col)
-          g1.drawBoard()
           checkRowHelper(row+1, col, g1 :: ls)
         }
       }else if(row < dim && col < dim && board.contains((row, col))){
@@ -104,7 +91,7 @@ class Game(val turn: Player, dim: Int, board: Map[(Int, Int), Player]) extends G
         else ls
       }
     }
-  checkRowHelper(0,col, List()) 
+  checkRowHelper(0,0, List()) 
   }
 }
 object Solution extends MinimaxLike {
@@ -119,16 +106,10 @@ object Solution extends MinimaxLike {
       val next = board.nextBoards().toStream.map(b => minimax(b))
         if(next.contains(Some(board.turn))) Some(board.turn)
         else if(next.contains(None)) None
-        else None//Some(otherPlayer)
+        else{
+          if(board.turn == O) Some(X)
+          else Some(O)
+        }
       }
   }
-    /** If it is Xs turn:
-        1. If X has won the game, return Some(X).
-        2. If the game is a draw, return None. (If all squares are filled
-            and nobody has won, then the game is a draw. However, you are
-            free to detect a draw earlier , if you wish .)
-        3. Recursively apply minimax to all the successor states of game
-      - If any recursive call produces X, return Some(X)
-      - Or , if any recursive call produces None , return None - Or, return Some(O)
-      The case for Os turn is similar. **/
 }

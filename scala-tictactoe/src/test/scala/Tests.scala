@@ -2,16 +2,6 @@ class Tests extends org.scalatest.FunSuite {
 
   import Solution._
   import hw.tictactoe._
-
-  test("CreateBoard") {
-    val gameBoard = Solution.createGame(O, 3, Map((0, 0) -> X, (0, 1) -> X, (0, 2) -> X, (2, 2) -> O, (1, 1) -> O))
-    //assert(minimax(new Game(X, 3, Map())) == None)
-    //assert(gameBoard.winning(List( ((0, 0), X), ((0, 1), X), ((0, 2), X) ), X) == true)
-    //assert(gameBoard.winning(List( ((0, 0), O), ((0, 1), O), ((0, 2), O) ), O) == true)
-    //assert(gameBoard.winning(List( ((0, 0), X), ((0, 1), X), ((0, 2), O) ), X) == false)
-
-  }
-  test("CreateBoard2") {
      val gameBoard = Solution.createGame(O, 3, Map((0, 0) -> X, (1, 0) -> X, (2, 0) -> X, (1, 1) -> X, (2, 2) -> X, (2, 1) -> O, (0, 1) -> O, (0, 2) -> O, (1, 2) -> O))
 
 
@@ -21,15 +11,69 @@ class Tests extends org.scalatest.FunSuite {
 
     val gameBoard3 = Solution.createGame(O, 3, Map((0, 0) -> O, (1, 0) -> X, (2, 0) -> X,
                                                    (0, 1) -> O, (1, 1) -> O, (2, 1) -> X,
-                                                   (0, 2) -> X, (1, 2) -> O, (2, 2) -> X))  
+                                                   (0, 2) -> X, (1, 2) -> O))  
 
     val gameBoard4 = Solution.createGame(O, 3, Map((0, 0) -> O, (1, 0) -> O, (2, 0) -> O,
                                                    (0, 1) -> X, (1, 1) -> X, (2, 1) -> O,
-                                                   (0, 2) -> X, (1, 2) -> X)    )                                           
+                                                   (0, 2) -> X, (1, 2) -> X)    )
+  test("isFinished1") {
     //assert(minimax(new Game(X, 3, Map())) == None)
     assert(gameBoard4.isFinished() == true)
+    assert(gameBoard2.isFinished() == true)
 
+  }
+      val gameBoard22 = Solution.createGame(X, 3, Map(             (1, 0) -> O,
+                                                   (0, 1) -> O, (1, 1) -> X, (2, 1) -> X,
+                                                   (0, 2) -> X, (1, 2) -> X, (2, 2) -> X))
 
+  test("isFinished11") {
+    //assert(minimax(new Game(X, 3, Map())) == None)
+    assert(gameBoard22.getWinner() == Some(X))
+    
+}
+  test("isFinished2") {
+    //assert(minimax(new Game(X, 3, Map())) == None)
+    assert(gameBoard3.isFinished() == false)
+  }
+      val win1 = new Game(X, 3,                Map((0, 0) -> X, (1, 0) -> O, (2, 0) -> X,
+                                                   (0, 1) -> O, (1, 1) -> O, (2, 1) -> O,
+                                                   (0, 2) -> X, (1, 2) -> X, (2, 2) -> O))
+
+      val win2 = new Game(X, 3,                Map((0, 0) -> O, (1, 0) -> O, (2, 0) -> X, (3, 0) -> X,
+                                                   (0, 1) -> X, (1, 1) -> O, (2, 1) -> O, (3, 1) -> X,
+                                                   (0, 2) -> O, (1, 2) -> O, (2, 2) -> O, (3, 2) -> X,
+                                                   (0, 3) -> O, (1, 3) -> X, (2, 3) -> O, (3, 3) -> O))
+
+      val win3 = new Game(X, 3,                Map((0, 0) -> X, (1, 0) -> O, (2, 0) -> O,
+                                                   (0, 1) -> O, (1, 1) -> X, (2, 1) -> O,
+                                                   (0, 2) -> X, (1, 2) -> O, (2, 2) -> X))
+
+      val win4 = new Game(X, 3,                Map((0, 0) -> O, (1, 0) -> O, (2, 0) -> X,
+                                                   (0, 1) -> O, (1, 1) -> X, (2, 1) -> O,
+                                                   (0, 2) -> X, (1, 2) -> O, (2, 2) -> X)) 
+
+      val draw = new Game(X, 3,      Map((0, 0) -> X, (1, 0) -> X, (2, 0) -> O,
+                                     (0, 1) -> O, (1, 1) -> X, (2, 1) -> X,
+                                     (0, 2) -> X, (1, 2) -> O, (2, 2) -> O))                                          
+  test("winner1") {
+    //assert(minimax(new Game(X, 3, Map())) == None)
+    assert(win1.getWinner() == Some(O))
+  }
+    test("winner2") {
+    //assert(minimax(new Game(X, 3, Map())) == None)
+    assert(win2.getWinner() == Some(O))
+  }
+    test("winner3") {
+    //assert(minimax(new Game(X, 3, Map())) == None)
+    assert(win3.getWinner() == Some(X))
+  }
+  test("winner4") {
+    //assert(minimax(new Game(X, 3, Map())) == None)
+    assert(win4.getWinner() == Some(X))
+  }
+  test("winner5") {
+    //assert(minimax(new Game(X, 3, Map())) == None)
+    assert(draw.getWinner() == None)
   }
   test("nextBoards") {
     val gameBoard = new Game(O, 3,             Map((0, 0) -> X, (1, 0) -> X, 
@@ -47,11 +91,30 @@ class Tests extends org.scalatest.FunSuite {
     val sol3 = new Game(X, 3,                  Map((0, 0) -> X, (1, 0) -> X, (2, 0) -> O,
                                                                 (1, 1) -> O, 
                                                    (0, 2) -> X, (1, 2) -> O, (2, 2) -> O))                             
-    //assert(minimax(new Game(X, 3, Map())) == None)
-    //gameBoard.drawBoard()
-    //assert(List(new Game(X, 3, Map())).toString() == List(new Game(X, 3, Map())).toString())
     
-    assert(gameBoard.checkRow(0) == List[Game](sol3))
+    //assert(gameBoard.nextBoards().equals List(sol1.drawBoard(), sol2.drawBoard(), sol3.drawBoard()))
+
+
+
+  }
+  test("minimax") {
+                           
+    assert(minimax(new Game(X, 3, Map())) == None)
+    //assert(List(new Game(X, 3, Map())).toString() == List(new Game(X, 3, Map())).toString())
+    val sol1 = new Game(X, 3,      Map((0, 0) -> O, (1, 0) -> X, (2, 0) -> O,
+                                                    (1, 1) -> X, (2, 1) -> X,
+                                       (0, 2) -> O, (1, 2) -> O, (2, 2) -> X)) 
+  val sol2 = new Game(X, 3,      Map((0, 0) -> X, (1, 0) -> X, (2, 0) -> O,
+                                     (2, 0) -> O, (1, 1) -> X, (2, 1) -> X,
+                                     (0, 2) -> X, (1, 2) -> O  )      ) 
+
+  val draw = new Game(O, 3,      Map((0, 0) -> X, (1, 0) -> X, 
+                                     (0, 1) -> O, (1, 1) -> X, (2, 1) -> X,
+                                     (0, 2) -> X, (1, 2) -> O, (2, 2) -> O))                                                                 
+    
+    assert(Solution.minimax(sol1) == Some(X))
+    assert(Solution.minimax(sol2) == Some(X))
+    assert(Solution.minimax(draw) == None)
 
 
   }
