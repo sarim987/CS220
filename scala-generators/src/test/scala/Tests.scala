@@ -91,19 +91,13 @@ class Tests extends org.scalatest.FunSuite {
     val stream = prime
     //assert(nth(one, 0) == 0)
 
-    print(stream.next()._1)
-    print(stream.next()._2.next()._1)
-    print(stream.next()._2.next()._2.next()._1)
-    print(stream.next()._2.next()._2.next()._2.next()._1)
-    print(stream.next()._2.next()._2.next()._2.next()._2.next()._1)
+    
+    assert(nth(stream, 0) == 2)
+    assert(nth(stream, 1) == 3)
+    assert(nth(stream, 2) == 5)
+    assert(nth(stream, 600) == 4421)
+    assert(nth(stream, 600) == 4421)
 
-    assert(stream.next()._1 == 2)
-    assert(stream.next()._2.next()._1 == 3)
-    assert(stream.next()._2.next()._2.next()._1 == 5)
-    assert(stream.next()._2.next()._2.next()._2.next()._1 == 7)
-    assert(stream.next()._2.next()._2.next()._2.next()._2.next()._1 == 11)
-    assert(stream.next()._2.next()._2.next()._2.next()._2.next()._2.next()._1 == 13)
-    assert(stream.next()._2.next()._2.next()._2.next()._2.next()._2.next()._2.next()._1 == 17)
 
   }
 
