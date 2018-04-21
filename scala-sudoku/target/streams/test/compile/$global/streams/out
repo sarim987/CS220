@@ -1,0 +1,4 @@
+[0m[[0m[31merror[0m] [0m[0m/Users/Sarim/Documents/CS220 Projects/scala-sudoku/src/test/scala/Tests.scala:38:11: Board and Int are unrelated: they will most likely never compare equal[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(board.place(0, 0, 3) == 1)[0m
+[0m[[0m[31merror[0m] [0m[0m          ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
