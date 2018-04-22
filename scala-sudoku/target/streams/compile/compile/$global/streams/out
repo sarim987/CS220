@@ -1,0 +1,11 @@
+[0m[[0m[31merror[0m] [0m[0m/Users/Sarim/Documents/CS220 Projects/scala-sudoku/src/main/scala/Main.scala:72:57: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : Seq[(Int, Int)][0m
+[0m[[0m[31merror[0m] [0m[0m required: List[(Int, Int)][0m
+[0m[[0m[31merror[0m] [0m[0m					val temp2 = placeHelper(placeHelper2(Solution.peers(list(k)._1, list(k)._2),temp), tempList(0), temp, 0)[0m
+[0m[[0m[31merror[0m] [0m[0m					                                                   ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/Sarim/Documents/CS220 Projects/scala-sudoku/src/main/scala/Main.scala:81:39: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : Seq[(Int, Int)][0m
+[0m[[0m[31merror[0m] [0m[0m required: List[(Int, Int)][0m
+[0m[[0m[31merror[0m] [0m[0m		new Board(placeHelper(Solution.peers(row,col), value, available, 0).updated((row,col), List(value)))[0m
+[0m[[0m[31merror[0m] [0m[0m		                                    ^[0m
+[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m

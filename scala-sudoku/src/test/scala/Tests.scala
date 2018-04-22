@@ -46,20 +46,20 @@ class TestSuite extends org.scalatest.FunSuite {
     val puzzle = "4.78.5632.2876495.5692.37847823495.6.45628.97936.5742889.436275.5497.86367.582.49"
     val board = Solution.parse(puzzle)
     
-    //assert(board.nextStates() == new Board(Solution.calcAllPos(0).map(coord => coord -> 1.to(9).toList).toMap))
+    assert(board.nextStates() == new Board(Solution.calcAllPos(0).map(coord => coord -> 1.to(9).toList).toMap))
   }
     test("solve") {
     val puzzle = "4.78.5632.2876495.5692.37847823495.6.45628.97936.5742889.436275.5497.86367.582.49"
     val board = Solution.parse(puzzle)
     
-    //assert(board.solve() == Some(new Board(Solution.calcAllPos(0).map(coord => coord -> 1.to(9).toList).toMap)))
+    assert(board.solve() == Some(new Board(Solution.calcAllPos(0).map(coord => coord -> 1.to(9).toList).toMap)))
   }
   test("Easier1") {
   // this one requires backtrack searching
   val fromCS121_1 = "85....4.1......67...21....3..85....7...982...3....15..5....43...37......2.9....58"
   val board = Solution.parse(fromCS121_1)
   println(board.solve())
-  //assert(board.solve() == Some(new Board(Solution.calcAllPos(0).map(coord => coord -> 1.to(9).toList).toMap)))
+  assert(board.solve() == Some(new Board(Solution.calcAllPos(0).map(coord => coord -> 1.to(9).toList).toMap)))
 }
 
 

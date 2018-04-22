@@ -59,29 +59,8 @@ class Board(val available: Map[(Int, Int), List[Int]]) extends BoardLike[Board] 
     }
   }
 
-  def isSolved(): Boolean = {
-    def solRow(row: Int, col: Int): Boolean = {
-      def solCol(col: Int): Boolean = {
-        if(row == 8 && col == 8){if(valueAt(row, col) != None) true else false}
-        else if(col < 8){ if(valueAt(row, col) != None) solCol(col + 1) else false} 
-        else solRow(row + 1, 0)
-      }
-      solCol(0)
-    }
-    solRow(0, 0)
-  }
-
-  def isUnsolvable(): Boolean = {
-    def solRow(row: Int, col: Int): Boolean = {
-      def solCol(col: Int): Boolean = {
-        if(row == 8 && col == 8){if(available(row, col).length == 0) true else false}
-        else if(col < 8){ if(available(row, col).length == 0) solCol(col + 1) else false} 
-        else solRow(row + 1, 0)
-      }
-      solCol(0)
-    }
-    solRow(0, 0)
-  }
+	def isSolved (): Boolean = available.filter(x => available.apply(x._1).size != 1).size == 0 
+	def isUnsolvable (): Boolean = available.filter(x => available.apply(x._1).size == 0).size != 0
 
   def place(row: Int, col: Int, value: Int): Board = {
     require(availableValuesAt(row, col).contains(value))
