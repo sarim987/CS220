@@ -59,20 +59,25 @@ class Board(val available: Map[(Int, Int), List[Int]]) extends BoardLike[Board] 
     }
   }
 
-	def isSolved (): Boolean = available.filter(x => available.apply(x._1).size != 1).size == 0 
-	def isUnsolvable (): Boolean = available.filter(x => available.apply(x._1).size == 0).size != 0
+  def isSolved(): Boolean = available.filter(vals => vals._2.size == 1).size == 81
+
+  def isUnsolvable(): Boolean = available.exists(vals => vals._2.size == 0)
 
   def place(row: Int, col: Int, value: Int): Board = {
     require(availableValuesAt(row, col).contains(value))
-    val newBoard = new Board(available + ((row, col) -> (value :: Nil)))
+    val newBoard = available + ((row, col) -> (value :: Nil))
     val lst = Solution.peers(row, col)
-    newBoard.removevals(lst, newBoard.available, value)
+    removevals(lst, newBoard, value)
   }
-    def removevals(lst: Seq[(Int, Int)], valmap: Map[(Int, Int), List[Int]], value: Int): Board = lst match {
-      case tup :: tail if(valmap((tup._1,tup._2)).contains(value) && valmap((tup._1,tup._2)).size == 2) => place(tup._1, tup._2, new Board(available + ((tup._1,tup._2) -> available((tup._1,tup._2)).filter(_ != value))).available((tup._1,tup._2)).head)
-      case tup :: tail => new Board(available + ((tup._1,tup._2) -> available((tup._1,tup._2)).filterNot(_ == value))).removevals(tail, available + ((tup._1,tup._2) -> available((tup._1,tup._2)).filter(_ != value)), value)
-      case Nil => new Board(valmap)
-    }
+	def removevals(lst: Seq[(Int,Int)], valmap: Map[(Int, Int), List [Int]], value: Int): Board = lst match {
+    case Nil => new Board(valmap)
+		case tup :: tail if (valmap(tup._1,tup._2).size != valmap(tup._1,tup._2).filter(v => v != value).size) &&
+        (valmap(tup._1,tup._2).filter(v => v != value).size == 1) =>  removevals(tail, removevals(Solution.peers(tup._1,tup._2), valmap + (tup -> valmap(tup._1,tup._2).filter(v => v != value)),valmap(tup._1,tup._2).filter(v => v != value).head).available, value)
+		case tup :: tail if (valmap(tup._1,tup._2).size != valmap(tup._1,tup._2).filter(v => v != value).size) =>
+        removevals(tail, valmap + (tup -> valmap(tup._1,tup._2).filter(v => v != value)), value)
+		case tup :: tail => removevals(tail, valmap, value)
+		}
+	
 
 
   // You can return any Iterable (e.g., Stream)

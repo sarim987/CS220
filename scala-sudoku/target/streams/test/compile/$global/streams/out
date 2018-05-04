@@ -1,4 +1,0 @@
-[0m[[0m[31merror[0m] [0m[0m/Users/Sarim/Documents/CS220 Projects/scala-sudoku/src/test/scala/Tests.scala:61:51: value calcAllPos is not a member of object Solution[0m
-[0m[[0m[31merror[0m] [0m[0m  assert(board.solve() == Some(new Board(Solution.calcAllPos(0).map(coord => coord -> 1.to(9).toList).toMap)))[0m
-[0m[[0m[31merror[0m] [0m[0m                                                  ^[0m
-[0m[[0m[31merror[0m] [0m[0mone error found[0m

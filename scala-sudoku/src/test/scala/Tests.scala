@@ -46,7 +46,7 @@ class TestSuite extends org.scalatest.FunSuite {
     val puzzle = "4.78.5632.2876495.5692.37847823495.6.45628.97936.5742889.436275.5497.86367.582.49"
     val board = Solution.parse(puzzle)
     
-    assert(board.nextStates() == new Board(Solution.calcAllPos(0).map(coord => coord -> 1.to(9).toList).toMap))
+    //assert(board.nextStates() == new Board(Solution.calcAllPos(0).map(coord => coord -> 1.to(9).toList).toMap))
   }
     test("solve") {
     val puzzle = "4.78.5632.2876495.5692.37847823495.6.45628.97936.5742889.436275.5497.86367.582.49"
@@ -58,11 +58,27 @@ class TestSuite extends org.scalatest.FunSuite {
   // this one requires backtrack searching
   val fromCS121_1 = "85....4.1......67...21....3..85....7...982...3....15..5....43...37......2.9....58"
   val board = Solution.parse(fromCS121_1)
+  assert(board.solve() == Some(new Board(Solution.calcAllPos(0).map(coord => coord -> 1.to(9).toList).toMap)))
+}
+  test("Easier2") {
+  // this one requires backtrack searching
+  val fromCS121_2 = ".1.....2..3..9..1656..7...33.7..8..........89....6......6.254..9.5..1..7..3.....2"
+  val board = Solution.parse(fromCS121_2)
+  assert(board.solve() == Some(new Board(Solution.calcAllPos(0).map(coord => coord -> 1.to(9).toList).toMap)))
+}
+  test("Easier3") {
+  // this one requires backtrack searching
+  val puz1 = ".43.8.25.6.............1.949....4.7....6.8....1.2....382.5.............5.34.9.71."
+  val board = Solution.parse(puz1)
+  assert(board.solve() == Some(new Board(Solution.calcAllPos(0).map(coord => coord -> 1.to(9).toList).toMap)))
+}
+  test("Easier4") {
+  // this one requires backtrack searching
+  val puz2 = "2...8.3...6..7..84.3.5..2.9...1.54.8.........4.27.6...3.1..7.4.72..4..6...4.1...3"
+  val board = Solution.parse(puz2) 
   println(board.solve())
   assert(board.solve() == Some(new Board(Solution.calcAllPos(0).map(coord => coord -> 1.to(9).toList).toMap)))
 }
-
-
 
 
 

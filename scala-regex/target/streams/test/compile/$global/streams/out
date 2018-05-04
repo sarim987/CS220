@@ -1,0 +1,7 @@
+[0m[[0m[31merror[0m] [0m[0m/Users/Sarim/Documents/CS220 Projects/scala-regex/src/test/scala/Tests.scala:7:12: not found: value notAlphanumeric[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(notAlphanumeric.pattern.matcher("&*&^^").matches())[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/Sarim/Documents/CS220 Projects/scala-regex/src/test/scala/Tests.scala:10:12: not found: value notAlphanumeric[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(notAlphanumeric.pattern.matcher("&*&^^").matches())[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m
